@@ -5,4 +5,4 @@
 ### 3.https://www.imooc.com/learn/630 Java高并发秒杀API之web层
 ### 4.https://www.imooc.com/learn/632 Java高并发秒杀API之高并发优化
 
-### 如有侵权，请联系我我会及时处理相关信息。
+### 如有侵权，请联系我q:2133714837, 我会及时处理相关信息。
