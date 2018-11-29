@@ -22,8 +22,17 @@ var seckill ={
             // 秒杀结束
             seckillBox.html('秒杀结束!');
         }else if (nowTime < startTime) {
-            //秒杀未开始:倒计时
-
+            //秒杀未开始:倒计时,事件绑定
+            var killTime = new Date(startTime + 1000);
+            seckillBox.countdown(killTime, function (event) {
+                //时间格式
+                var format = event.strftime('秒杀倒计时:%D天 %H时 %M分 %S秒');
+                seckillBox.html(format);
+                //时间倒计时完成回调
+            }).on('finish.countdown',function(){
+                //获取秒杀地址,控制实现逻辑.执行秒杀
+                
+            })
         }else  {
             //正在秒杀
         }
@@ -65,6 +74,7 @@ var seckill ={
                 });
             }else {
                 //已经登录
+
                 //计时交互
                 var startTime = params['startTime'];
                 var endTime = params['endTime'];

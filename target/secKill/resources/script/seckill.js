@@ -3,13 +3,34 @@
 var seckill ={
     //封装秒杀相关ajax的url
     URL:{
-
+        now:function() {
+            return '/seckill/time/now';
+        }
     },
     validatePhone:function(phone) {
         if (phone && phone.length == 11 && !isNaN(phone)) {
             return true;
         }else {
             return false;
+        }
+    },
+    countdown: function (seckillId,nowTime,startTime,endTime) {
+        var seckillBox = $('#seckill-box');
+
+        //时间判断
+        if (nowTime > endTime) {
+            // 秒杀结束
+            seckillBox.html('秒杀结束!');
+        }else if (nowTime < startTime) {
+            //秒杀未开始:倒计时,事件绑定
+            var killTime = new Date(startTime + 1000);
+            seckillBox.countdown(killTime, function (event) {
+                //时间格式
+                var format = event.strftime('秒杀倒计时:%D天 %H时 %M分 %S秒');
+                seckillBox.html(format);
+            })
+        }else  {
+            //正在秒杀
         }
     },
     //详情秒杀逻辑
@@ -20,9 +41,7 @@ var seckill ={
             //规划交互流程
             //1.验证:在cokies中查手机号
             var killPhone = $.cookie('killPhone');
-            var startTime = params['startTime'];
-            var endTime = params['endTime'];
-            var seckillId = params['seckillId'];
+
             //alert(killPhone);
 
             //2.验证手机号
@@ -39,6 +58,7 @@ var seckill ={
 
                 $('#killPhoneBtn').click(function(){
                     var inputPhone = $('#killPhoneKey').val();
+                    console.log(inputPhone);
                     if (seckill.validatePhone(inputPhone)) {
                         //电话写入cookies
                         $.cookie('killPhone',inputPhone,{expires:7,path:'/seckill'});
@@ -50,6 +70,20 @@ var seckill ={
                 });
             }else {
                 //已经登录
+                //计时交互
+                var startTime = params['startTime'];
+                var endTime = params['endTime'];
+                var seckillId = params['seckillId'];
+
+                $.get(seckill.URL.now(), {},function(result){
+                    if (result && result['success']) {
+                        var nowTime = result['data'];
+                        //计时时间判断
+                        seckill.countdown(seckillId,nowTime,startTime,endTime);
+                    }else {
+                        console.log('result:' + result);
+                    }
+                });
 
             }
 
