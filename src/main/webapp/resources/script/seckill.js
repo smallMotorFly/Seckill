@@ -7,7 +7,7 @@ var seckill ={
             return '/seckill/time/now';
         },
         exposer:function(seckillId) {
-            return 'seckill/' + seckillId + '/exposer';
+            return '/seckill/' + seckillId + '/exposer';
         },
         execution: function (seckillId,md5) {
             return '/seckill/' + seckillId + '/' + md5 + '/execution';
@@ -22,7 +22,8 @@ var seckill ={
     },
     //执行秒杀
     handlerSeckill:function(seckillId,node) {
-        node.hide().html('<button class="btn btn-primary btn-lg" id="killBtn">开始秒杀</button>');
+        node.hide()
+            .html('<button class="btn btn-primary btn-lg" id="killBtn">开始秒杀</button>');
         $.post(seckill.URL.exposer(seckillId),{},function(result){
             //回调函数中执行交互流程,获取秒杀地址,控制秒杀逻辑
             if (result && result['success']) {
