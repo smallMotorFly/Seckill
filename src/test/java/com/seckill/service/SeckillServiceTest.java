@@ -78,7 +78,7 @@ public class SeckillServiceTest {
     //综合秒杀流程
     @Test
     public void testLogic() throws Exception {
-        long id = 1011;
+        long id = 1006;
         Exposer exposer = seckillService.exportSeckillUrl(id);
 
         if (exposer.isExposed()) {
