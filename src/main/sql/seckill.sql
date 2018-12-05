@@ -40,7 +40,8 @@ CREATE PROCEDURE execute_seckill
         SET r_result = 1;
       END IF;
     END IF;
-  END $$
+  END;
+$$
 -- 存储过程定义结束
 
 DELIMITER  ;
@@ -55,7 +56,7 @@ SELECT @r_result
 
 
 -- 存储过程
--- 1.存储过程优化:事物行级锁持有时间
+-- 1.存储过程优化:事务行级锁持有时间
 -- 2.不要过度依赖存储过程
 -- 3.简单的逻辑可以应用存储过程
 -- 4.QPS:一个秒杀单6000/qps
