@@ -104,7 +104,7 @@ public class SeckillServiceTest {
     //测试存储过程 秒杀
     @Test
     public void executeSeckillProcedure() {
-        long seckillId = 1006;
+        long seckillId = 1015;
         long phone = 17621191603L;
 
         Exposer exposer = seckillService.exportSeckillUrl(seckillId);
